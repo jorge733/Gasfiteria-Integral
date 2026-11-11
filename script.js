@@ -36,7 +36,7 @@ const animateCount = (el) => {
   requestAnimationFrame(step);
 };
 
-const revealTargets = document.querySelectorAll('.card, .steps li, .review, .features li, .section__head, .why > div, .form');
+const revealTargets = document.querySelectorAll('.gallery__item, .card, .steps li, .review, .features li, .section__head, .why > div, .form');
 if ('IntersectionObserver' in window) {
   revealTargets.forEach((el) => el.classList.add('reveal'));
   const io = new IntersectionObserver((entries) => {
@@ -72,3 +72,21 @@ form.addEventListener('submit', (e) => {
   ].filter(Boolean).join('\n');
   window.open(`https://wa.me/${WHATSAPP}?text=${encodeURIComponent(text)}`, '_blank', 'noopener');
 });
+
+// Galería: ver foto ampliada
+const lightbox = document.getElementById('lightbox');
+if (lightbox && typeof lightbox.showModal === 'function') {
+  const lbImg = lightbox.querySelector('img');
+  const lbText = lightbox.querySelector('p');
+  document.querySelectorAll('.gallery__item button').forEach((btn) => {
+    btn.addEventListener('click', () => {
+      const img = btn.querySelector('img');
+      lbImg.src = btn.dataset.full;
+      lbImg.alt = img.alt;
+      lbText.textContent = img.alt;
+      lightbox.showModal();
+    });
+  });
+  lightbox.querySelector('.lightbox__close').addEventListener('click', () => lightbox.close());
+  lightbox.addEventListener('click', (e) => { if (e.target === lightbox) lightbox.close(); });
+}
