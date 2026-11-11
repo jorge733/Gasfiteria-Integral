@@ -1,5 +1,5 @@
 // Número de WhatsApp (formato internacional sin "+"). DEMO: reemplazar por el real.
-const WHATSAPP = '56900000000';
+const WHATSAPP = '56981504919';
 
 // Año en el footer
 document.getElementById('year').textContent = new Date().getFullYear();
@@ -30,7 +30,7 @@ const animateCount = (el) => {
   const step = (now) => {
     const p = Math.min((now - start) / dur, 1);
     const val = Math.round(target * (1 - Math.pow(1 - p, 3)));
-    el.textContent = (target >= 1000 ? '+' : '') + val.toLocaleString('es-CL');
+    el.textContent = val.toLocaleString('es-CL') + (el.dataset.suffix || '');
     if (p < 1) requestAnimationFrame(step);
   };
   requestAnimationFrame(step);
